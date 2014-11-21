@@ -14,10 +14,10 @@ var getAvailableProducts = function(array) {
 	var newArray = [];
 
 		for (i=0; i < array.length; i+=1) {
-		if (array[i].product.inventories[0].availability === "inStock") {
-		newArray.push(array[i].product.googleId);
+			if (array[i].product.inventories[0].availability === "inStock") {
+				newArray.push(array[i]);
+			}
 		}
-	}
 	return newArray;
 }
 
@@ -26,8 +26,9 @@ var getItemsByAuthor = function (arrayToSearch, desiredAuthor) {
 	desiredAuthor = desiredAuthor.toLowerCase();
 	var newArray = [];
 	for (i=0; i < arrayToSearch.length; i+=1) {
-		if (arrayToSearch[i].product.author.name.toLowerCase() === desiredAuthor) {
-			newArray.push([arrayToSearch[i].product.googleId, arrayToSearch[i].product.author.name]);
+		if ( arrayToSearch[i].product.author.name.toLowerCase().indexOf(desiredAuthor) >= 0 ) {
+		// if (arrayToSearch[i].product.author.name.toLowerCase() === desiredAuthor.toLowerCase()) {
+			newArray.push(arrayToSearch[i]);
 		}
 	}
 	return newArray;
@@ -37,47 +38,57 @@ var getItemsByBrand = function(arrayToSearch, desiredBrand) {
 	var newArray = [];
 	desiredBrand = desiredBrand.toLowerCase();
 
-	for (var i = 0; i < data.items.length; i+=1) {
-	if (arrayToSearch[i].product.brand.toLowerCase() === desiredBrand) {
-		newArray.push([arrayToSearch[i].product.googleId, arrayToSearch[i].product.brand]);
+	for (var i = 0; i < arrayToSearch.length; i+=1) {
+		if (arrayToSearch[i].product.brand.toLowerCase() === desiredBrand) {
+			newArray.push(arrayToSearch[i]);
+		}
 	}
-}
 	return newArray;
 }
 
 var getItems = function(product) {
-	return data.items;
+	return product.items;
 }
 
 //  * All items made by Nikon with the author eBay.
-newArray1 = [];
+// This is another version of logic that doesn't actually work, but should in work in theory:
 
-for (var i = 0; i < data.items.length; i+=1) {
-	if (getItemsByBrand(data.items, "Nikon") && (getItemsByAuthor(data.items, "ebay")) {
-	newArray1.push(data.items.product.googleId);
-	}
-}
-console.log(newArray1)
+// newArray1 = [];
 
-// // * All items made by Sony.
-// 	getItemsByBrand(data.items, "Sony")
-newArray2 = [];
+// for (var i = 0; i < data.items.length; i+=1) {
+// 	if (getItemsByBrand(data.items, "Nikon") && (getItemsByAuthor(data.items, "ebay")) {
+// 	newArray1.push(data.items.product.googleId);
+// 	}
+// }
+// console.log(newArray1)
+var itemsByNikon = (getItemsByBrand(getItems(data), "Nikon"));
+console.log(getItemsByAuthor(itemsByNikon, "ebay"));
 
-for (var i = 0; i < data.items.length; i+=1) {
-	if (getItemsByBrand(data.items, "Sony")) === true;
-	newArray2.push(data.items.product.googleId);
-}
-console.log(newArray2)
+// // // * All items made by Sony.
+// // 	getItemsByBrand(data.items, "Sony")
+// // newArray2 = [];
 
-// //* All items made by Sony that are available.
-// 	if (getItemsByBrand(data.items, "Sony") && (getAvailableProducts(data.items))
+var itemsBySony = (getItemsByBrand(getItems(data), "Sony"));
+console.log(getAvailableProducts(itemsBySony);
 
-newArray3 = [];
+// for (var i = 0; i < data.items.length; i+=1) {
+// 	if (getItemsByBrand(data.items, "Sony")) === true;
+// 	newArray2.push(data.items.product.googleId);
+// }
+// console.log(newArray2)
 
-for (var i = 0; i < data.items.length; i+=1) {
-	if (getItemsByBrand(data.items, "Nikon") && (getAvailableProducts(data.items)) {
-	newArray3.push(data.items.product.googleId);
-	}
-}
-console.log(newArray3)
+// // //* All items made by Sony that are available.
+// // 	if (getItemsByBrand(data.items, "Sony") && (getAvailableProducts(data.items))
+
+var itemsBySony = (getItemsByBrand(getItems(data), "Sony"));
+console.log(getAvailableProducts(itemsBySony));
+
+// newArray3 = [];
+
+// for (var i = 0; i < data.items.length; i+=1) {
+// 	if (getItemsByBrand(data.items, "Nikon") && (getAvailableProducts(data.items)) {
+// 	newArray3.push(data.items.product.googleId);
+// 	}
+// }
+// console.log(newArray3)
 

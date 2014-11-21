@@ -4,7 +4,7 @@
 
 var data = require("./products.json")
 
-var getItems = function(product) {
+var getItems = function(allData) {
 	return data.items;
 }
 

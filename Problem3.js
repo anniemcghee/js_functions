@@ -8,7 +8,7 @@ var getItemsByAuthor = function (arrayToSearch, desiredAuthor) {
 	desiredAuthor = desiredAuthor.toLowerCase();
 	var newArray = [];
 	for (i=0; i < arrayToSearch.length; i+=1) {
-		if (arrayToSearch[i].product.author.name.toLowerCase() === desiredAuthor) {
+		if (arrayToSearch[i].product.author.name.toUpperCase() === desiredAuthor.toUpperCase()) {
 			newArray.push([arrayToSearch[i].product.googleId, arrayToSearch[i].product.author.name]);
 		}
 	}
